@@ -1,0 +1,49 @@
+---
+title: Index page
+---
+{% extends "layouts/_layout.html" %}
+
+{% block content %}
+	
+<div class="samoletik"></div>
+
+<button class="button">
+	Überbutton 🔥🔥🔥
+</button>
+
+
+<script>
+	if('paintWorklet' in CSS) {
+		CSS.paintWorklet.addModule('js/SuperRed.js')
+	}
+</script>
+
+
+
+<!-- JS FOR CSS VARS -->
+<script>
+
+const button = document.querySelector('.button');
+let x, y;
+
+button.addEventListener('click', event => {
+  button.classList.add('is-animating');
+  let start = performance.now();
+  [x, y] = [event.clientX - button.offsetLeft, event.clientY - button.offsetTop ];
+  requestAnimationFrame(function raf(now) {
+    const count = Math.floor(now - start);
+    button.style.cssText = `--circle-x: ${x}; --circle-y: ${y}; --circle-size: ${count};`;
+    if(count > 1000) {
+      button.classList.remove('is-animating');
+      button.style.cssText = `--circle-size: 0`;
+      return;
+    }
+    requestAnimationFrame(raf);
+  })
+})
+</script>
+
+
+
+
+{% endblock %}
